@@ -1,298 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathematical Keyboard</title>
-    <style>
-        /* We'll add CSS here */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-        
-        .input-field {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 20px;
-            padding: 10px;
-            font-size: 18px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            resize: none;
-        }
-        
-        .keyboard {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 5px;
-        }
-        
-        .key {
-            padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 16px;
-            user-select: none;
-        }
-        
-        .key:hover {
-            background-color: #e0e0e0;
-        }
-        
-        .key:active {
-            background-color: #d0d0d0;
-        }
-        
-        .category-tabs {
-            display: flex;
-            margin-bottom: 10px;
-        }
-        
-        .category-tab {
-            padding: 8px 15px;
-            background-color: #e0e0e0;
-            border: 1px solid #ccc;
-            border-radius: 4px 4px 0 0;
-            margin-right: 5px;
-            cursor: pointer;
-        }
-        
-        .category-tab.active {
-            background-color: #f0f0f0;
-            border-bottom: none;
-        }
-        
-        .category {
-            display: none;
-        }
-        
-        .category.active {
-            display: grid;
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mathematical & Scientific Symbols — Symbol Library</title>
+<meta name="description" content="Huge searchable library of mathematical, logical, and scientific symbols (Unicode blocks). Copy symbols, type them in the editor, and use them in documents." />
+<link rel="canonical" href="https://yourdomain.example/symbols" />
+<meta name="robots" content="index,follow" />
+<!-- Open Graph -->
+<meta property="og:title" content="Mathematical & Scientific Symbols — Symbol Library" />
+<meta property="og:description" content="Search & copy math, logic & scientific symbols (Unicode). Organized categories, typing space included, mobile-friendly, and accessible." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://yourdomain.example/symbols" />
+<meta property="og:image" content="https://yourdomain.example/og-image.png" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- JSON-LD structured data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Mathematical & Scientific Symbols — Symbol Library",
+  "description":"Searchable library of Unicode mathematical and scientific symbols. Copy symbols and use them in documents, code, and chat.",
+  "url":"https://yourdomain.example/symbols",
+  "inLanguage":"en"
+}
+</script>
+
+<style>
+  :root {
+    --bg:#f9fafb;
+    --card:#fff;
+    --muted:#555;
+    --accent:#0b63d6;
+    --highlight:#ff9800;
+  }
+  html,body {
+    height:100%;margin:0;
+    font-family:Inter,system-ui,Arial,sans-serif;
+    background:var(--bg);color:#111;
+  }
+  .wrap {max-width:1140px;margin:18px auto;padding:18px}
+  header {margin-bottom:12px;text-align:center}
+  h1 {font-size:1.8rem;margin:0;color:var(--accent)}
+  .meta {color:var(--muted);font-size:.95rem}
+  .controls {display:flex;gap:8px;margin:14px 0;flex-wrap:wrap;justify-content:center}
+  input[type="search"], select, button {
+    padding:10px 14px;border-radius:8px;border:1px solid #d0d7de;
+    background:white;cursor:pointer;font-size:0.95rem
+  }
+  main {display:flex;gap:18px}
+  nav.categories {
+    min-width:220px;max-width:260px;
+    background:var(--card);padding:12px;
+    border-radius:10px;border:1px solid #eee;
+    height:72vh;overflow:auto
+  }
+  nav .cat {padding:8px;border-radius:6px;margin-bottom:6px;cursor:pointer}
+  nav .cat.active {background:linear-gradient(90deg,#e3f2fd,#fff);border:1px solid #90caf9;font-weight:600}
+  section.symbol-area {
+    flex:1;min-height:60vh;background:var(--card);
+    padding:12px;border-radius:10px;border:1px solid #eee;
+    display:flex;flex-direction:column
+  }
+  .grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:10px}
+  .sym {
+    background:#fff;border:1px solid #e0e0e0;
+    padding:10px;border-radius:10px;
+    text-align:center;font-size:22px;
+    cursor:pointer;user-select:none;
+    transition:.2s ease;box-shadow:1px 1px 4px rgba(0,0,0,0.05)
+  }
+  .sym:hover {background:#e3f2fd;border-color:#2196f3;transform:scale(1.08)}
+  .sym.popular {background:#fff8e1;border:1px solid #ffb300}
+  .sym .code {display:block;font-size:11px;color:var(--muted);margin-top:6px}
+  .actions {display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .pager {display:flex;gap:6px;align-items:center}
+  footer {margin-top:16px;color:var(--muted);font-size:.9rem;text-align:center}
+
+  /* Typing space */
+  .editor-wrap {
+    margin:22px 0;padding:16px;background:var(--card);
+    border:1px solid #ddd;border-radius:12px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.05);
+  }
+  .editor-wrap h2 {margin-top:0;color:var(--highlight);font-size:1.2rem}
+  #typingArea {
+    width:100%;min-height:120px;resize:vertical;
+    font-size:1.2rem;padding:12px;
+    border:1px solid #ccc;border-radius:10px;
+    font-family:Inter,system-ui,Arial,sans-serif;
+    outline:none
+  }
+  #copyEditor {
+    margin-top:10px;padding:10px 16px;background:var(--accent);color:#fff;
+    border:none;border-radius:8px;cursor:pointer;font-size:0.95rem;
+    transition:0.2s;
+  }
+  #copyEditor:hover {background:#0848a8}
+  @media (max-width:800px){main{flex-direction:column}nav.categories{height:auto;order:2}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Mathematical Keyboard</h1>
-        
-        <textarea class="input-field" id="mathInput" placeholder="Click on the symbols below to input mathematical notation..."></textarea>
-        
-        <div class="category-tabs">
-            <div class="category-tab active" data-category="basic">Basic</div>
-            <div class="category-tab" data-category="operators">Operators</div>
-            <div class="category-tab" data-category="greek">Greek</div>
-            <div class="category-tab" data-category="advanced">Advanced</div>
-        </div>
-        
-        <div class="keyboard">
-            <!-- Basic Math -->
-            <div class="category active" id="basic">
-                <div class="key" data-value="+">+</div>
-                <div class="key" data-value="-">−</div>
-                <div class="key" data-value="*">×</div>
-                <div class="key" data-value="/">÷</div>
-                <div class="key" data-value="=">=</div>
-                <div class="key" data-value="≠">≠</div>
-                <div class="key" data-value="≈">≈</div>
-                <div class="key" data-value="±">±</div>
-                <div class="key" data-value="(">(</div>
-                <div class="key" data-value=")">)</div>
-                
-                <div class="key" data-value=".">.</div>
-                <div class="key" data-value=",">,</div>
-                <div class="key" data-value="%">%</div>
-                <div class="key" data-value="√">√</div>
-                <div class="key" data-value="²">x²</div>
-                <div class="key" data-value="³">x³</div>
-                <div class="key" data-value="^">^</div>
-                <div class="key" data-value="!">!</div>
-                <div class="key" data-value="∞">∞</div>
-                <div class="key" data-value="π">π</div>
-            </div>
-            
-            <!-- Operators -->
-            <div class="category" id="operators">
-                <div class="key" data-value="<"><</div>
-                <div class="key" data-value=">">></div>
-                <div class="key" data-value="≤">≤</div>
-                <div class="key" data-value="≥">≥</div>
-                <div class="key" data-value="∩">∩</div>
-                <div class="key" data-value="∪">∪</div>
-                <div class="key" data-value="∈">∈</div>
-                <div class="key" data-value="∉">∉</div>
-                <div class="key" data-value="⊂">⊂</div>
-                <div class="key" data-value="⊃">⊃</div>
-                
-                <div class="key" data-value="∀">∀</div>
-                <div class="key" data-value="∃">∃</div>
-                <div class="key" data-value="∄">∄</div>
-                <div class="key" data-value="∴">∴</div>
-                <div class="key" data-value="∵">∵</div>
-                <div class="key" data-value="≡">≡</div>
-                <div class="key" data-value="≢">≢</div>
-                <div class="key" data-value="∼">∼</div>
-                <div class="key" data-value="∝">∝</div>
-                <div class="key" data-value="′">′</div>
-            </div>
-            
-            <!-- Greek Letters -->
-            <div class="category" id="greek">
-                <div class="key" data-value="α">α</div>
-                <div class="key" data-value="β">β</div>
-                <div class="key" data-value="γ">γ</div>
-                <div class="key" data-value="δ">δ</div>
-                <div class="key" data-value="ε">ε</div>
-                <div class="key" data-value="ζ">ζ</div>
-                <div class="key" data-value="η">η</div>
-                <div class="key" data-value="θ">θ</div>
-                <div class="key" data-value="ι">ι</div>
-                <div class="key" data-value="κ">κ</div>
-                
-                <div class="key" data-value="λ">λ</div>
-                <div class="key" data-value="μ">μ</div>
-                <div class="key" data-value="ν">ν</div>
-                <div class="key" data-value="ξ">ξ</div>
-                <div class="key" data-value="ο">ο</div>
-                <div class="key" data-value="π">π</div>
-                <div class="key" data-value="ρ">ρ</div>
-                <div class="key" data-value="σ">σ</div>
-                <div class="key" data-value="τ">τ</div>
-                <div class="key" data-value="υ">υ</div>
-                
-                <div class="key" data-value="φ">φ</div>
-                <div class="key" data-value="χ">χ</div>
-                <div class="key" data-value="ψ">ψ</div>
-                <div class="key" data-value="ω">ω</div>
-                <div class="key" data-value="Γ">Γ</div>
-                <div class="key" data-value="Δ">Δ</div>
-                <div class="key" data-value="Θ">Θ</div>
-                <div class="key" data-value="Λ">Λ</div>
-                <div class="key" data-value="Ξ">Ξ</div>
-                <div class="key" data-value="Π">Π</div>
-                
-                <div class="key" data-value="Σ">Σ</div>
-                <div class="key" data-value="Φ">Φ</div>
-                <div class="key" data-value="Ψ">Ψ</div>
-                <div class="key" data-value="Ω">Ω</div>
-            </div>
-            
-            <!-- Advanced Symbols -->
-            <div class="category" id="advanced">
-                <div class="key" data-value="∫">∫</div>
-                <div class="key" data-value="∬">∬</div>
-                <div class="key" data-value="∭">∭</div>
-                <div class="key" data-value="∮">∮</div>
-                <div class="key" data-value="∯">∯</div>
-                <div class="key" data-value="∰">∰</div>
-                <div class="key" data-value="∇">∇</div>
-                <div class="key" data-value="∂">∂</div>
-                <div class="key" data-value="∆">∆</div>
-                <div class="key" data-value="∑">∑</div>
-                
-                <div class="key" data-value="∏">∏</div>
-                <div class="key" data-value="∐">∐</div>
-                <div class="key" data-value="⊕">⊕</div>
-                <div class="key" data-value="⊗">⊗</div>
-                <div class="key" data-value="⊥">⊥</div>
-                <div class="key" data-value="∥">∥</div>
-                <div class="key" data-value="∠">∠</div>
-                <div class="key" data-value="∡">∡</div>
-                <div class="key" data-value="∢">∢</div>
-                <div class="key" data-value="¬">¬</div>
-                
-                <div class="key" data-value="∧">∧</div>
-                <div class="key" data-value="∨">∨</div>
-                <div class="key" data-value="⇒">⇒</div>
-                <div class="key" data-value="⇔">⇔</div>
-                <div class="key" data-value="→">→</div>
-                <div class="key" data-value="↔">↔</div>
-                <div class="key" data-value="↦">↦</div>
-                <div class="key" data-value="↔">↔</div>
-            </div>
-        </div>
-        
-        <div style="margin-top: 20px;">
-            <button id="copyBtn">Copy Text</button>
-            <button id="clearBtn">Clear</button>
-        </div>
-    </div>
+<div class="wrap">
+  <header>
+    <h1>Mathematical & Scientific Symbols — Symbol Library</h1>
+    <div class="meta">Unicode-backed collection • Search, copy, type, and explore symbol blocks</div>
+  </header>
 
-    <script>
-        // We'll add JavaScript here
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputField = document.getElementById('mathInput');
-            const categoryTabs = document.querySelectorAll('.category-tab');
-            const categories = document.querySelectorAll('.category');
-            const keys = document.querySelectorAll('.key');
-            const copyBtn = document.getElementById('copyBtn');
-            const clearBtn = document.getElementById('clearBtn');
-            
-            // Switch between categories
-            categoryTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const categoryId = this.getAttribute('data-category');
-                    
-                    // Update active tab
-                    categoryTabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Show selected category
-                    categories.forEach(cat => {
-                        cat.classList.remove('active');
-                        if (cat.id === categoryId) {
-                            cat.classList.add('active');
-                        }
-                    });
-                });
-            });
-            
-            // Add symbols to input field
-            keys.forEach(key => {
-                key.addEventListener('click', function() {
-                    const value = this.getAttribute('data-value');
-                    inputField.focus();
-                    
-                    // Insert the symbol at cursor position
-                    const start = inputField.selectionStart;
-                    const end = inputField.selectionEnd;
-                    const text = inputField.value;
-                    const newText = text.substring(0, start) + value + text.substring(end);
-                    
-                    inputField.value = newText;
-                    
-                    // Set cursor position after inserted symbol
-                    inputField.selectionStart = inputField.selectionEnd = start + value.length;
-                });
-            });
-            
-            // Copy text to clipboard
-            copyBtn.addEventListener('click', function() {
-                inputField.select();
-                document.execCommand('copy');
-                alert('Text copied to clipboard!');
-            });
-            
-            // Clear input field
-            clearBtn.addEventListener('click', function() {
-                inputField.value = '';
-                inputField.focus();
-            });
-        });
-    </script>
+  <!-- Typing Space -->
+  <div class="editor-wrap">
+    <h2>✍️ Typing Space</h2>
+    <textarea id="typingArea" placeholder="Click symbols to insert them here..."></textarea>
+    <button id="copyEditor">Copy Text</button>
+  </div>
+
+  <div class="controls" role="region" aria-label="Search and options">
+    <input id="search" type="search" placeholder="Search symbol, codepoint (U+2200), name or description..." aria-label="Search symbols">
+    <select id="blockSelect" aria-label="Choose block">
+      <option value="all">All categories</option>
+    </select>
+    <button id="downloadCSV">Download CSV</button>
+  </div>
+
+  <main>
+    <nav class="categories" aria-label="Symbol categories" id="categories"></nav>
+
+    <section class="symbol-area" aria-live="polite">
+      <!-- Popular symbols section -->
+      <div style="margin-bottom:18px">
+        <h2 style="margin:6px 0;color:var(--highlight)">🔥 Most Used Symbols</h2>
+        <div class="grid" id="popularGrid"></div>
+      </div>
+
+      <div class="actions">
+        <div id="resultsInfo">Loading symbols…</div>
+        <div class="pager">
+          <button id="prevPage" aria-label="Previous page">Prev</button>
+          <span id="pageInfo">—</span>
+          <button id="nextPage" aria-label="Next page">Next</button>
+        </div>
+      </div>
+
+      <div id="grid" class="grid" role="list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Tip: click a symbol to insert it into the typing space, or copy directly. Works on desktop & mobile. Use the search to find by Unicode codepoint or name.</div>
+    <div style="margin-top:8px">Developed for public use — include attribution & source links when re-using. © 2025</div>
+  </footer>
+</div>
+
+<script>
+// Popular symbols list
+const POPULAR=[0x03C0,0x221A,0x221E,0x2260,0x2264,0x2265,0x2211,0x222B,0x2206,0x00B0,0x00B1,0x2248,0x03BC];
+const BLOCKS=[{start:0x2100,end:0x214F,label:"Letterlike & technical"},{start:0x2190,end:0x21FF,label:"Arrows"},{start:0x2200,end:0x22FF,label:"Mathematical Operators"},{start:0x2300,end:0x23FF,label:"Misc Technical"},{start:0x25A0,end:0x25FF,label:"Geometric Shapes"},{start:0x27C0,end:0x27EF,label:"Misc Math A"},{start:0x2980,end:0x29FF,label:"Misc Math B"},{start:0x2A00,end:0x2AFF,label:"Supplemental Math"},{start:0x1D400,end:0x1D7FF,label:"Math Alphanumeric Symbols"},{start:0x1EE00,end:0x1EEFF,label:"Arabic Math Alphabetic"}];
+const NAME_HINTS={0x221E:"infinity",0x2211:"summation sigma",0x2200:"for all",0x2203:"exists",0x03C0:"pi",0x221A:"square root",0x00B1:"plus-minus",0x00B0:"degree",0x00D7:"multiplication",0x00F7:"division"};
+let selectedBlock='all',page=1;const PAGE_SIZE=120;let allSymbolsList=[];
+function buildAllSymbols(){if(allSymbolsList.length)return allSymbolsList;for(const b of BLOCKS){for(let cp=b.start;cp<=b.end;cp++){try{const ch=String.fromCodePoint(cp);allSymbolsList.push({cp,ch,block:b.label,code:'U+'+cp.toString(16).toUpperCase().padStart(4,'0')});}catch(e){}}}for(let cp=0x0370;cp<=0x03FF;cp++){try{const ch=String.fromCodePoint(cp);allSymbolsList.push({cp,ch,block:"Greek & Coptic",code:'U+'+cp.toString(16).toUpperCase().padStart(4,'0')});}catch(e){}}return allSymbolsList;}
+function renderPopular(){const grid=document.getElementById('popularGrid');grid.innerHTML='';POPULAR.forEach(cp=>{const ch=String.fromCodePoint(cp);const el=document.createElement('button');el.className='sym popular';el.type='button';el.innerHTML=`<span>${ch}</span><span class="code">U+${cp.toString(16).toUpperCase()}</span>`;el.addEventListener('click',()=>insertSymbol(ch));grid.appendChild(el);});}
+function populateCategories(){const nav=document.getElementById('categories');nav.innerHTML='';const allBtn=document.createElement('div');allBtn.className='cat active';allBtn.textContent='All categories';allBtn.dataset.block='all';nav.appendChild(allBtn);allBtn.addEventListener('click',()=>{selectCategory('all')});for(const b of BLOCKS){const d=document.createElement('div');d.className='cat';d.textContent=b.label;d.dataset.block=b.label;d.addEventListener('click',()=>{selectCategory(b.label)});nav.appendChild(d);const opt=document.createElement('option');opt.value=b.label;opt.textContent=b.label;document.getElementById('blockSelect').appendChild(opt);}}
+function selectCategory(blockLabel){selectedBlock=blockLabel;page=1;document.querySelectorAll('.cat').forEach(e=>e.classList.toggle('active',e.dataset.block===blockLabel||(blockLabel==='all'&&e.dataset.block==='all')));render();}
+function filterSymbols(q){const list=buildAllSymbols();q=(q||'').trim().toLowerCase();if(!q)return list;const m=q.match(/^u\+([0-9a-f]{1,6})$/i);if(m){const cp=parseInt(m[1],16);return list.filter(s=>s.cp===cp);}else{return list.filter(s=>{const hint=NAME_HINTS[s.cp]||'';return s.code.toLowerCase().includes(q)||s.ch.toLowerCase().includes(q)||hint.toLowerCase().includes(q)||s.block.toLowerCase().includes(q);});}}
+function render(){const grid=document.getElementById('grid');grid.innerHTML='';const q=document.getElementById('search').value;let list=filterSymbols(q);if(selectedBlock!=='all')list=list.filter(s=>s.block===selectedBlock);list.sort((a,b)=>a.cp-b.cp);const total=list.length;const pages=Math.max(1,Math.ceil(total/PAGE_SIZE));if(page>pages)page=pages;const start=(page-1)*PAGE_SIZE;const subset=list.slice(start,start+PAGE_SIZE);document.getElementById('resultsInfo').textContent=`Showing ${start+1}-${start+subset.length} of ${total} symbols (${pages} pages)`;document.getElementById('pageInfo').textContent=`${page} / ${pages}`;for(const s of subset){const el=document.createElement('button');el.className='sym';el.type='button';el.innerHTML=`<span>${s.ch}</span><span class="code">${s.code}</span>`;el.addEventListener('click',()=>insertSymbol(s.ch));grid.appendChild(el);}}
+function insertSymbol(symbol){const area=document.getElementById('typingArea');const start=area.selectionStart,end=area.selectionEnd;area.setRangeText(symbol,start,end,'end');area.focus();}
+async function copyEditorText(){const area=document.getElementById('typingArea');try{await navigator.clipboard.writeText(area.value);alert("Copied text to clipboard ✅");}catch(e){alert("Copy failed — please copy manually.");}}
+document.getElementById('prevPage').addEventListener('click',()=>{if(page>1){page--;render();}});document.getElementById('nextPage').addEventListener('click',()=>{page++;render();});
+let searchTimer=null;document.getElementById('search').addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{page=1;render();},200);});
+document.getElementById('blockSelect').addEventListener('change',e=>{selectCategory(e.target.value==='all'?'all':e.target.value);});
+document.getElementById('downloadCSV').addEventListener('click',()=>{const list=filterSymbols(document.getElementById('search').value).filter(s=>selectedBlock==='all'||s.block===selectedBlock);const rows=[['codepoint','char','block']];for(const s of list)rows.push([s.code,s.ch,s.block]);const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='symbols.csv';a.click();URL.revokeObjectURL(url);});
+document.getElementById('copyEditor').addEventListener('click',copyEditorText);
+// init
+buildAllSymbols();populateCategories();renderPopular();render();
+</script>
 </body>
 </html>
